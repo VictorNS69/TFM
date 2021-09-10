@@ -1,0 +1,98 @@
+\ProvidesPackage{cover}
+\RequirePackage{xcolor}
+\RequirePackage{changepage}
+\RequirePackage{eso-pic}
+\RequirePackage{geometry}
+\RequirePackage{graphicx}
+
+\definecolor{Black}{HTML}{000000}
+
+\def\director{Falta \textbackslash{Director\{Nombre de tu director\}}}
+
+\newcommand\Director[1]{
+  \def\director{#1}
+}
+
+\def\lugar{Madrid}
+
+\newcommand\Lugar[1]{
+  \def\lugar{#1}
+}
+
+\def\master{Máster en Seguridad Informática y Hacking Ético}
+
+\newcommand\Master[1]{
+  \def\master{#1}
+}
+
+\def\trabajo{TRABAJO FIN DE MÁSTER}
+
+\newcommand\Trabajo[1]{
+  \def\trabajo{#1}
+}
+
+\renewcommand*{\maketitle}{\begin{titlepage}
+    \AddToShipoutPicture*{
+      \put(-36,0){
+        \parbox[b][\paperheight]{\paperwidth}{
+          \vfill
+          \centering
+          \includegraphics[width=1.1\paperwidth,height=1\paperheight]{cover/background.png}
+          \vfill
+        }
+      }
+    }
+
+    \newgeometry{inner=1.5cm,outer=1.5cm,top=1.5cm,bottom=1.5cm}
+
+    \begin{figure}
+      \begin{minipage}{.5\linewidth}
+        \begin{flushleft}
+          \includegraphics[scale=0.65]{cover/CICE_logo.png}
+        \end{flushleft}
+      \end{minipage}
+    \end{figure}
+
+    \vspace*{1cm}
+
+    \begin{center}
+      {\color{Black}
+        {\LARGE\bf \master}\\[1.5cm]
+        {\LARGE CICE}\\[0.2cm]
+        {\LARGE La Escuela Profesional de Nuevas Tecnologías}\\[1cm]
+        {\LARGE\bf \trabajo}\\[1.5cm]
+
+        {\LARGE\bfseries{\@title}}
+
+      }
+    \end{center}
+
+
+    \AddToShipoutPictureFG*{
+      \put(\LenToUnit{0.50\paperwidth},\LenToUnit{0.28\paperheight}){
+        \vtop{{\null}\makebox[0pt][c]{
+            \color{Black}
+            \begin{tabular}{rl}
+              \LARGE Autor: & \LARGE \@author \\[0.5cm]
+              \LARGE Director: & \LARGE \director
+            \end{tabular}
+        }}
+      }
+    }
+
+    \AddToShipoutPictureFG*{
+      \put(\LenToUnit{0.70\paperwidth},\LenToUnit{0.12\paperheight}){
+        \vtop{{\null}\makebox[0pt][c]{
+            \color{Black}
+            \LARGE\MakeUppercase{\lugar, \@date}
+        }}
+      }
+    }
+
+    \restoregeometry
+
+    \ClearShipoutPicture
+  \end{titlepage}
+
+  \newpage
+}

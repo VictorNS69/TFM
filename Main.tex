@@ -1,0 +1,88 @@
+\documentclass[a4paper, 12pt]{article} % Fuente 12pt
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage[left=3cm, right=3cm, top=3.5cm, bottom=3.5cm]{geometry} % Márgenes recomendados
+\usepackage{times} % Fuente Times New Romans
+\usepackage[english]{babel} 
+\usepackage[style=ieee, backend=bibtex,citestyle=numeric-comp]{biblatex} % Bibliografía en formato IEEE
+\usepackage{sectsty}
+\usepackage{cover}
+\usepackage{graphicx}
+\graphicspath{ {images/} } % Directorio imágenes
+\usepackage{listings} % Formateo código
+\usepackage{scrextend}
+\usepackage{longtable}
+\usepackage{pgfplots} % Graficas de barras
+\usepackage{pgf-pie} % Graficas de tartas
+\usepackage{multirow} % multiples filas en las tablas
+% Lista de acronimos
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\input{sections/Acronyms}
+\sectionfont{\MakeUppercase} % Secciones en mayúsculas
+\bibliography{sections/Bibliography.bib}
+
+\Director{Luis Alfonso Rodríguez De Trio y Perez}
+\Lugar{Madrid} 
+\Master{Máster en Seguridad Informática y Hacking Ético} 
+\Trabajo{TRABAJO FIN DE MÁSTER} 
+
+\author{Víctor Nieves Sánchez}
+\date{Octubre de 2021}
+\title{Resolución y explicación de CTF\_X y CTF\_Y}
+
+\begin{document}
+\maketitle
+\null
+\newpage
+
+\pagenumbering{roman} % Numeración romana hasta la primera sección
+
+%\begin{otherlanguage}{spanish}
+%    \renewcommand{\spanishabstractname}{Agradecimientos}
+%    \begin{abstract}
+%        \input{sections/agradecimientos}
+%    \end{abstract}
+%\end{otherlanguage}
+
+\newpage
+\tableofcontents
+
+\newpage
+\listoffigures
+
+\newpage
+\listoftables
+
+\newpage
+\lstlistoflistings
+
+\newpage
+\printglossary[type=\acronymtype]
+
+\newpage
+\begin{otherlanguage}{spanish}
+    \renewcommand{\spanishabstractname}{Resumen}
+    \begin{abstract}
+        \normalsize
+        \input{sections/resumen}
+    \end{abstract}
+\end{otherlanguage}
+
+\newpage
+\begin{abstract}
+    \normalsize
+    \input{sections/abstract}
+\end{abstract}
+
+\newpage
+\pagenumbering{arabic} % Numeración árabe en la primera sección
+\UseRawInputEncoding % UTF-8 Listings
+
+\newpage
+% \nocite{*} % Cita todas las ref (incluidas las no citadas)
+\printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
+
+\end{document}
+
