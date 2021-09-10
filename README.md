@@ -7,9 +7,9 @@
 TODO
 
 ## Requirements
-1. Install **_LaTex_**.
+1. Install **_LaTex_** (also Spanish language).
 ```bash
-sudo apt install texlive-full
+sudo apt install texlive-full texlive-lang-spanish
 ```
 ## Generate the PDF file
 Just run the _Makefile_ with:

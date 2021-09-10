@@ -4,10 +4,10 @@
 \usepackage{hyperref}
 \usepackage[left=3cm, right=3cm, top=3.5cm, bottom=3.5cm]{geometry} % Márgenes recomendados
 \usepackage{times} % Fuente Times New Romans
-\usepackage[english]{babel} 
+\usepackage[spanish, english]{babel} 
 \usepackage[style=ieee, backend=bibtex,citestyle=numeric-comp]{biblatex} % Bibliografía en formato IEEE
 \usepackage{sectsty}
-\usepackage{cover}
+\usepackage{cover/cover}
 \usepackage{graphicx}
 \graphicspath{ {images/} } % Directorio imágenes
 \usepackage{listings} % Formateo código
@@ -36,7 +36,8 @@
 \maketitle
 \null
 \newpage
-
+\begin{otherlanguage}{spanish}
+    
 \pagenumbering{roman} % Numeración romana hasta la primera sección
 
 %\begin{otherlanguage}{spanish}
@@ -53,6 +54,7 @@
 \listoffigures
 
 \newpage
+\renewcommand{\listtablename}{Lista de Tablas}
 \listoftables
 
 \newpage
@@ -62,20 +64,19 @@
 \printglossary[type=\acronymtype]
 
 \newpage
-\begin{otherlanguage}{spanish}
-    \renewcommand{\spanishabstractname}{Resumen}
     \begin{abstract}
         \normalsize
         \input{sections/resumen}
     \end{abstract}
-\end{otherlanguage}
 
 \newpage
-\begin{abstract}
-    \normalsize
-    \input{sections/abstract}
-\end{abstract}
-
+\begin{otherlanguage}{english}
+    \renewcommand{\spanishabstractname}{Abstract}
+    \begin{abstract}
+        \normalsize
+        \input{sections/abstract}
+    \end{abstract}
+\end{otherlanguage}
 \newpage
 \pagenumbering{arabic} % Numeración árabe en la primera sección
 \UseRawInputEncoding % UTF-8 Listings
@@ -84,5 +85,7 @@
 % \nocite{*} % Cita todas las ref (incluidas las no citadas)
 \printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
 
+\end{otherlanguage}
 \end{document}
+
 
