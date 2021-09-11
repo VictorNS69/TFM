@@ -1,5 +1,4 @@
 \documentclass[a4paper, 12pt]{article} % Fuente 12pt
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
 \usepackage[left=3cm, right=3cm, top=3.5cm, bottom=3.5cm]{geometry} % Márgenes recomendados
@@ -9,17 +8,26 @@
 \usepackage{sectsty}
 \usepackage{cover/cover}
 \usepackage{graphicx}
+\usepackage{subfig}
 \graphicspath{ {images/} } % Directorio imágenes
 \usepackage{listings} % Formateo código
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{black}{$\hookrightarrow$}\space},
+}
 \usepackage{scrextend}
 \usepackage{longtable}
 \usepackage{pgfplots} % Graficas de barras
 \usepackage{pgf-pie} % Graficas de tartas
 \usepackage{multirow} % multiples filas en las tablas
+\usepackage[utf8]{inputenc}
 % Lista de acronimos
 \usepackage[acronym]{glossaries}
-\makeglossaries
 \input{sections/Acronyms}
+\makeglossaries
 \sectionfont{\MakeUppercase} % Secciones en mayúsculas
 \bibliography{sections/Bibliography.bib}
 
@@ -37,53 +45,76 @@
 \null
 \newpage
 \begin{otherlanguage}{spanish}
-    
-\pagenumbering{roman} % Numeración romana hasta la primera sección
 
-%\begin{otherlanguage}{spanish}
-%    \renewcommand{\spanishabstractname}{Agradecimientos}
-%    \begin{abstract}
-%        \input{sections/agradecimientos}
-%    \end{abstract}
-%\end{otherlanguage}
+    \pagenumbering{roman} % Numeración romana hasta la primera sección
 
-\newpage
-\tableofcontents
+    %\begin{otherlanguage}{spanish}
+    %    \renewcommand{\spanishabstractname}{Agradecimientos}
+    %    \begin{abstract}
+    %        \input{sections/agradecimientos}
+    %    \end{abstract}
+    %\end{otherlanguage}
 
-\newpage
-\listoffigures
+    \newpage
+    \tableofcontents
 
-\newpage
-\renewcommand{\listtablename}{Lista de Tablas}
-\listoftables
+    \newpage
+    \listoffigures
 
-\newpage
-\lstlistoflistings
+    \newpage
+    \renewcommand{\listtablename}{Lista de Tablas}
+    \listoftables
 
-\newpage
-\printglossary[type=\acronymtype]
+    \newpage
+    \lstlistoflistings
 
-\newpage
+    \newpage
+    \printglossary[type=\acronymtype]
+
+    \newpage
     \begin{abstract}
         \normalsize
         \input{sections/resumen}
     \end{abstract}
 
-\newpage
-\begin{otherlanguage}{english}
-    \renewcommand{\spanishabstractname}{Abstract}
-    \begin{abstract}
-        \normalsize
-        \input{sections/abstract}
-    \end{abstract}
-\end{otherlanguage}
-\newpage
-\pagenumbering{arabic} % Numeración árabe en la primera sección
-\UseRawInputEncoding % UTF-8 Listings
+    \newpage
+        \renewcommand{\spanishabstractname}{Abstract}
+        \begin{abstract}
+            \normalsize
+            \input{sections/abstract}
+        \end{abstract}
+    \newpage
+    \pagenumbering{arabic} % Numeración árabe en la primera sección
 
-\newpage
-% \nocite{*} % Cita todas las ref (incluidas las no citadas)
-\printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
+    \section{Introducción}
+        voy a resolver varias máquinas
+        - contexto
+        - motivacion
+        - objetivos
+        - estructura del documento
+    
+    \newpage
+    \section{Estado del Arte}
+    - hacking ético
+    - htb
+    - ctf
+    
+    \newpage
+    \section{Herramientas}
+    
+    \newpage
+    \section{\acrshort{CTF} 1: \textit{Cap}}
+    \input{sections/machines/cap}
+    
+    \newpage
+    \section{ctf2}
+    
+    \newpage
+    \section{conclusiones}
+    
+    \newpage
+    % \nocite{*} % Cita todas las ref (incluidas las no citadas)
+    \printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
 
 \end{otherlanguage}
 \end{document}
