@@ -1,0 +1,1 @@
+Este directorio contiene las trazas resultantes en la resuloción de las distintas máquinas.
