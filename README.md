@@ -27,6 +27,6 @@ help:			Show this help.
 compile: 		Compiles the main .tex.
 generate_bibliography:	Generates the bibliography. 
 generate_glossary:	Generates the glossary and the list of acronyms.
-recompile_and_rename:	Recompiles the .text and renames the PDF file.
+recompile_and_rename:	Recompiles the .tex and renames the PDF file.
 clean:			Clean output files.
 ```
