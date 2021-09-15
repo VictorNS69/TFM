@@ -113,7 +113,7 @@ Una vez subido el script, lo ejecutamos con:
 ./linpeas.sh -a > 03_linpeas.txt
 \end{lstlisting}
 
-El flag `-a` es utilizado para revisar todos los checks posibles; es recomendado en la realización de un \acrshort{CTF}.\\
+El flag \texttt{-a} es utilizado para revisar todos los checks posibles; es recomendado en la realización de un \acrshort{CTF}.\\
 
 Como resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/03_linpeas.txt}{Output de \textit{03\_linpeas.txt}}} vemos que \textit{nathan} puede utilizar \texttt{/usr/bin/python3.8} como \textit{root} (figura \ref{fig:cap-linpeas}).\\
 
@@ -140,4 +140,6 @@ python3 -c "import os; os.setuid(0); os.system('/bin/bash -i')"
 
 \subsection{Resumen}
 
-resumen de la máquina, vulnerabilidades encontradas y demás
+En esta máquina hemos encontrado varias vulnerabilidades o malas prácticas. Por ejemplo, se han encontrado información sensible sobre la red y los además de los puertos abiertos en la máquina (figura \ref{fig:cap}). También se ha encontrado que, por una característica de la aplicación, te puedes bajar paquetes de esnifado de red (archivos \texttt{.pcap}). Esto sumado a que hay un servidor \acrshort{ftp} que no cifra las comunicaciones a la hora de iniciar sesión, nos ha podido encontrar las credenciales en claro en uno de los paquetes descargados. Esto nos ha permitido conectarnos al servidor \acrshort{ftp}. Además, se ha hecho uso de malas políticas de gestión de contraseñas y, se ha podido acceder al servicio \acrshort{ssh} con las mismas credenciales.\\
+
+Una vez hemos entrado en la máquina vía \acrshort{ssh}, hemos podido subir un archivo (\texttt{linpeas.sh}) que nos ha permitido escanear la máquina, obteniendo así información sobre los permisos que tiene el usuario \textit{nathan}. Tras el escaneo, se ha encontrado que se puede ejecutar \textit{Python 3.8} como súper-usuario, lo cual, con un sencillo payload, nos permite acceder a la máquina como \textit{root}.
