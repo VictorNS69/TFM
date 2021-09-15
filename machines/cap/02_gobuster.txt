@@ -1,0 +1,29 @@
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+[+] Url:                     https://10.10.10.245
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /home/victor/Hacking/SecLists/Discovery/Web-Content/raft-large-words.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+2021/09/15 13:15:49 Starting gobuster in directory enumeration mode
+[+] Url:                     http://10.10.10.245
+2021/09/15 13:16:11 Starting gobuster in directory enumeration mode
+
+/data                 (Status: 302) [Size: 208] [--> http://10.10.10.245/]
+
+/ip                   (Status: 200) [Size: 17376]                         
+
+/capture              (Status: 302) [Size: 220] [--> http://10.10.10.245/data/16]
+
+/netstat              (Status: 200) [Size: 34862]                               
+2021/09/15 13:24:17 Finished
+[+] Wordlist:                /home/victor/Hacking/SecLists/Discovery/Web-Content/raft-large-directories.txt
+2021/09/15 13:24:55 Starting gobuster in directory enumeration mode
+
+/ip                   (Status: 200) [Size: 17379]                         
+
+/capture              (Status: 302) [Size: 222] [--> http://10.10.10.245/data/16]
+2021/09/15 13:28:45 Finished
