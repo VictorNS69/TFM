@@ -1,67 +1,62 @@
 Esta sección se realizará la máquina de \acrlong{htb} llamada \textit{Cap}\cite{cap}. \textit{Cap} es una máquina de dificultad ``fácil``.
 
 \subsection{Reconocimiento}
-En la fase de reconocimiento hemos encontrado la información de la máquina en la propia página principal\cite{cap} de la misma. Se ha encontrado que es una máquina \textit{Linux} y que su IP es \texttt{10.10.10.245}.
+En la fase de reconocimiento hemos encontrado la información de la máquina en la propia página principal\cite{cap} de la misma. Se ha encontrado que es una máquina \textit{Linux} y que su IP es \texttt{10.10.10.245}.\\
 
 Dado que es un \acrshort{CTF}, no se ha visto la necesidad de indagar más en esta fase.
 
 \subsection{Enumeración}
 El primer paso realizado en la enumeración es usar la herramienta \textit{Nmap}\cite{nmap}. Para ello se ha utilizado el siguiente comando.
 \begin{lstlisting}[language=bash]
-nmap -p- --min-rate 10000 -o ports.txt 10.10.10.245
+nmap -p- --min-rate 10000 -o 00_nmap_ports.txt 10.10.10.245
 \end{lstlisting}
-El argumento \texttt{-p-} para hacer un escaneo de todos los puertos; \texttt{--min-rate 10000} se ha utilizado para indicar a \textit{Nmap} que como mínimo envíe 10000 paquetes por segundo; por último, el argumento \texttt{-o ports.txt}, que es utilizado para guardar la salida en un archivo llamado ports.txt.
+El argumento \texttt{-p-} para hacer un escaneo de todos los puertos; \texttt{--min-rate 10000} se ha utilizado para indicar a \textit{Nmap} que como mínimo envíe 10000 paquetes por segundo; por último, el argumento \texttt{-o ports.txt}, que es utilizado para guardar la salida en un archivo llamado \textit{00\_nmap\_ports.txt}.\\
 
-Tras la ejecución del comando, se han encontrado los puertos 21/\acrshort{tcp}, 22/\acrshort{tcp} y 80/\acrshort{tcp} abiertos. Con este resultado, de nuevo ejecutamos \textit{Nmap} para sacar información sobre los servicios que se están ejecutando en cada puerto.
+Tras la ejecución del comando, se han encontrado los puertos 21/\acrshort{tcp}, 22/\acrshort{tcp} y 80/\acrshort{tcp} abiertos. Con este resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/00_nmap_ports.txt}{Output de \textit{00\_nmap\_ports.txt}}}, de nuevo ejecutamos \textit{Nmap} para sacar información sobre los servicios que se están ejecutando en cada puerto.\\
 
 Se ha utilizado el siguiente comando:
 \begin{lstlisting}[language=bash]
-sudo nmap -p 21,22,80 -sS -sCV 10.10.10.245 -o nmap.txt
+sudo nmap -p 21,22,80 -sS -sCV 10.10.10.245 -o 01_nmap_services.txt
 \end{lstlisting}
 
-Esta vez, el comando \texttt{-p} recibe los puertos obtenidos con el comando anterior, es decir, los puertos 21, 22 y 80 \acrshort{tcp}. Se ha decidido hacer un escaneo de tipo \textit{Stealth}, ya que es la manera más rápida y popular para escanear en el protocolo TCP; para ello se ha utilizado el argumento \texttt{-sS}. Se ha utilizado el comando \texttt{-sCV} para obtener información sobre el servicio habilitado en el puerto (\texttt{-sV}) y para realizar el escaneo con los scripts por defecto de \textit{Nmap} (\texttt{-sC}). Por último, también se ha decidido guardar la salida del comando en un archivo (argumento \texttt{-o} llamado nmap.txt.
+Esta vez, el comando \texttt{-p} recibe los puertos obtenidos con el comando anterior, es decir, los puertos 21, 22 y 80 \acrshort{tcp}. Se ha decidido hacer un escaneo de tipo \textit{Stealth}, ya que es la manera más rápida y popular para escanear en el protocolo TCP; para ello se ha utilizado el argumento \texttt{-sS}. Se ha utilizado el comando \texttt{-sCV} para obtener información sobre el servicio habilitado en el puerto (\texttt{-sV}) y para realizar el escaneo con los scripts por defecto de \textit{Nmap} (\texttt{-sC}). Por último, también se ha decidido guardar la salida del comando en un archivo (argumento \texttt{-o} llamado \textit{01\_nmap\_services}.txt.\\
 
-Tras la ejecución se ha encontrado que, efectivamente, la máquina es un sistema \textit{Linux}, concretamente con el sistema operativo \textit{Ubuntu}. Como era de esperar, en el puerto 21/\acrshort{tcp} se ha encontrado un servidor \acrshort{ftp}, está corriendo \textit{vsftpd}\cite{vsftpd} en la versión 3.0.3. En el puerto 22/\acrshort{tcp} está levantado un servidor \acrshort{ssh}, está utilizando \textit{OpenSSH}\cite{openssh} versión 8.2p1. Por último, en el puerto 80/\acrshort{tcp} un servidor \acrshort{http} \textit{Gunicorn}\cite{gunicorn}.
+Tras la ejecución\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/01_nmap_services.txt}{Output de \textit{01\_nmap\_services.txt}}} se ha encontrado que, efectivamente, la máquina es un sistema \textit{Linux}, concretamente con el sistema operativo \textit{Ubuntu}. Como era de esperar, en el puerto 21/\acrshort{tcp} se ha encontrado un servidor \acrshort{ftp}, está corriendo \textit{vsftpd}\cite{vsftpd} en la versión 3.0.3. En el puerto 22/\acrshort{tcp} está levantado un servidor \acrshort{ssh}, está utilizando \textit{OpenSSH}\cite{openssh} versión 8.2p1. Por último, en el puerto 80/\acrshort{tcp} un servidor \acrshort{http} \textit{Gunicorn}\cite{gunicorn}.\\
 
 En este fase, también se ha decidido utilizar la herramienta \textit{Gobuster}\cite{gobuster} en la web, para encontrar endpoints no accesibles a primera vista. Para ello, se ha utilizado el siguiente comando:
 \begin{lstlisting}[language=bash]
-gobuster dir -u http://10.10.10.245 -w ~/Hacking/SecLists/Discovery/Web-Content/raft-large-directories.txt | anew gobuster.txt
+gobuster dir -u http://10.10.10.245 -w ~/Hacking/SecLists/Discovery/Web-Content/raft-large-words.txt | anew 03_gobuster.txt
 \end{lstlisting}
-Se ha elegido el argumento \texttt{dir} para realizar una búsquedad de directorios mediante fuerza bruta; el flag \texttt{-u} es el utilizado para pasar la \acrshort{url} que vamos  a escanear; el argumento \texttt{-w} se utiliza para pasarle a \textit{Gobuster} una lista de palabras para utilizar. En este caso se ha decidido usar la lista \textit{raft-large-directories.txt} de \textit{SecLists}\cite{seclists}. Por último, el resultado de \textit{Gobuster} se ha decidido pasar a la herrameinta \textit{anew}\cite{anew} porque también se ha realizado el mismo comando pero con la lista \textit{raft-large-words.txt}.
+Se ha elegido el argumento \texttt{dir} para realizar una búsqueda de directorios mediante fuerza bruta; el flag \texttt{-u} es el utilizado para pasar la \acrshort{url} que vamos  a escanear; el argumento \texttt{-w} se utiliza para pasarle a \textit{Gobuster} una lista de palabras para utilizar. En este caso se ha decidido usar la lista \textit{raft-large-words.txt} de \textit{SecLists}\cite{seclists}. Por último, el resultado de \textit{Gobuster} se ha decidido pasar a la herramienta \textit{anew}\cite{anew} porque también se ha realizado el mismo comando pero con la lista \textit{raft-large-directories.txt}.\\
 
-Como resultado se han encontrado las siguientes \acrshort{url}'s:
+Como resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/02_gobuster.txt}{Output de \textit{02\_gobuster.txt}}} se han encontrado las siguientes \acrshort{url}'s:
 \begin{itemize}
-    \item \texttt{/}
     \item \texttt{/data}
     \item \texttt{/ip}
-    \item \texttt{/capture} (redirecciona a \texttt{/data})
+    \item \texttt{/capture} (redirecciona a \texttt{/data/16})
     \item \texttt{/netstat}
 \end{itemize}
 
 \subsection{Ganar acceso}
 
-Lo primero que se ha intentado es acceder al servicio \acrshort{ssh} con contraseñas débiles, como \textit{admin:admin}, \textit{admin:Passw0rd} o \textit{admin:123456}, pero ninguna ha dado resultado.
+Lo primero que se ha intentado es acceder al servicio \acrshort{ssh} con contraseñas débiles, como \textit{admin:admin}, \textit{admin:Passw0rd} o \textit{admin:123456}, pero ninguna ha dado resultado.\\
 
-Acto seguido se ha decidido investigar la web. Al abrir la página web \texttt{http://10.10.10.245}, lo primero que encontramos es un dashboard (figura \ref{fig:cap-dashboard}). Vemos que ya estamos logeados como \textit{Nathan}, y que algunos de los botones no funcionan, como \textit{Message} y \textit{Settings}.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/machines/cap/web-dashboard.png}
-    \caption{Cap: Dashboard (\texttt{http://10.10.10.245})}
-    \label{fig:cap-dashboard}
-\end{figure}
+Acto seguido se ha decidido investigar la web. Al abrir la página web (\texttt{http://10.\\10.10.245}), lo primero que encontramos es un dashboard (figura \ref{fig:cap}-a). Vemos que ya estamos logeados como \textit{Nathan}, y que algunos de los botones no funcionan, como \textit{Message} y \textit{Settings}.\\
 
-También se ha investigado las pestañas del menú lateral izquierdo. Encontramos información de la red en los apartados \textit{IP Config} (figura \ref{fig:cap-net}-a) y \textit{Network Status} (figura \ref{fig:cap-net}-b).
+También se ha investigado las pestañas del menú lateral izquierdo. Encontramos información de la red en los apartados \textit{IP Config} (figura \ref{fig:cap}-b) y \textit{Network Status} (figura \ref{fig:cap}-c).\\
 
 \begin{figure}
     \centering
+    \subfloat[\centering \textit{Cap: Dashboard (\texttt{http://10.10.10.245/})}]{{\includegraphics[width=0.80\textwidth]{images/machines/cap/web-dashboard.png} }}%
+    \qquad
     \subfloat[\centering \textit{Cap: IP Config (\texttt{http://10.10.10.245/ip})}]{{\includegraphics[width=0.80\textwidth]{images/machines/cap/web-ip.png} }}%
     \qquad
     \subfloat[\centering \textit{Cap: Network Status (\texttt{http://10.10.10.245/netstat})}]{{\includegraphics[width=0.80\textwidth]{images/machines/cap/web-network.png} }}
-    \caption{Cap Información de red}
-    \label{fig:cap-net}
+    \caption{Cap: Capturas de la web}
+    \label{fig:cap}
 \end{figure}
 
-Por último, el apartado Security Snapshot (figura \ref{fig:cap-snapshot}) nos permite descargar un paquete \texttt{.pcap}.
+Por último, el apartado Security Snapshot (figura \ref{fig:cap-snapshot}) nos permite descargar un paquete \texttt{.pcap}. Al clicar el botón \textit{Download}, nos bajamos un archivo llamado \textit{16.pcap}\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/pcaps/16.pcap}{Archivo \textit{16.pcap}}}. Nombre que coincide con la \acrshort{url}, ya que esta es \texttt{/data/16}. Investigamos el paquete con \textit{Wireshark}\cite{wireshark} (figura \ref{fig:cap-wire-16}).\\
 
 \begin{figure}[h]
     \centering
@@ -70,8 +65,6 @@ Por último, el apartado Security Snapshot (figura \ref{fig:cap-snapshot}) nos p
     \label{fig:cap-snapshot}
 \end{figure}
 
-Al clicar el botón \textit{Download}, nos bajamos un archivo llamado \textit{16.pcap}. Nombre que coincide con la \acrshort{url}, ya que esta es \texttt{/data/16}. Investigamos el paquete con \textit{Wireshark}\cite{wireshark} (figura \ref{fig:cap-wire-16})
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/machines/cap/wireshark-16.png}
@@ -79,11 +72,11 @@ Al clicar el botón \textit{Download}, nos bajamos un archivo llamado \textit{16
     \label{fig:cap-wire-16}
 \end{figure}
 
-Tras investigar los paquetes, no se ha encontrado nada relevante. Tampoco se ha encontrado nada sobre los servicios \acrshort{ssh} y \acrshort{ftp}.\\
+Tras investigar el archivo \texttt{16.pcap}, no se ha encontrado nada relevante. Tampoco se ha encontrado nada sobre los servicios \acrshort{ssh} y \acrshort{ftp}.\\
 
-Al no encontrar nada en este paquete, se ha decidido probar con la \acrshort{url} \texttt{/data/\{?\}}. Se ha probado con los valores `0`, `1` y `1000`. En los casos `0` y `1` hemos conseguido entrar a \texttt{/data/0} y \texttt{/data/1} descargar los paquetes \texttt{0.pcap} y \texttt{1.pcap}, pero con el valor `1000` hemos sido redirigidos a la página principal.\\
+Al no encontrar nada en este paquete, se ha decidido probar con la \acrshort{url} \texttt{/data/\{?\}}. Se ha probado con los valores `0`, `1` y `1000`. En los casos `0` y `1` hemos conseguido entrar a \texttt{/data/0} y \texttt{/data/1} descargar los paquetes \texttt{0.pcap}\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/pcaps/0.pcap}{Archivo \textit{0.pcap}}} y \texttt{1.pcap}\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/pcaps/1.pcap}{Archivo \textit{1.pcap}}}, pero con el valor `1000` hemos sido redirigidos a la página principal.\\
 
-Se ha decidido empezar por orden, y empezar revisando primero \texttt{0.pcap}. Al revisar el paquete, encontramos que en este hay movimiento en los puertos 21 y 22. Además, encontramos un inicio de sesión exitoso en el servidor \acrshort{ftp}. Como se ve en la figura \ref{fig:cap-wire-0}, se encuentran las credenciales \textit{nathan:Buck3tH4TF0RM3!}.
+Se ha decidido empezar por orden, y empezar revisando primero \texttt{0.pcap}. Al revisar el paquete, encontramos que en este hay movimiento en los puertos 21 y 22. Además, encontramos un inicio de sesión exitoso en el servidor \acrshort{ftp}. Como se ve en la figura \ref{fig:cap-wire-0}, se encuentran las credenciales \textit{nathan:Buck3tH4TF0RM3!}.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/machines/cap/wireshark-0.png}
@@ -103,7 +96,10 @@ Con las credenciales obtenidas, entramos al servidor \acrshort{ftp}, y, como se 
 
 Lo primero que se decide hacer es intentar acceder al \acrshort{ssh} con las credenciales anteriores. Conseguimos entrar.\\
 
-Primero, intentamos ver si el usuario \textit{nathan} puede ejecutar algo como súper-usuario. Vemos que \textit{nathan} no puede usar \texttt{sudo} (figura \ref{fig:cap-nathan-sudo}).
+Primero, intentamos ver si el usuario \textit{nathan} puede ejecutar algo como súper-usuario. Vemos que \textit{nathan} no puede usar \texttt{sudo} (figura \ref{fig:cap-nathan-sudo}). Para encontrar si el usuario \textit{nathan} puede ejecutar algún comando con permisos de súper-usuario, se ha utilizado la herramienta \textit{linPEAS}\cite{peas}. Para poder utilizar \textit{linPEAS}, tenemos que tener el script en la máquina víctima. Para pasar el script de nuestro host a la máquina, se ha utilizado el siguiente comando:
+\begin{lstlisting}[language=bash]
+scp ./linpeas.sh nathan@10.10.10.245:/home/nathan
+\end{lstlisting}
 
 \begin{figure}[h]
     \centering
@@ -112,17 +108,14 @@ Primero, intentamos ver si el usuario \textit{nathan} puede ejecutar algo como s
     \label{fig:cap-nathan-sudo}
 \end{figure}
 
-Para encontrar si el usuario \textit{nathan} puede ejecutar algún comando con permisos de súper-usuario, se ha utilizado la herramienta \textit{linPEAS}\cite{peas}. Para poder utilizar \textit{linPEAS}, tenemos que tener el script en la máquina víctima. Para pasar el script de nuestro host a la máquina, se ha utilizado el siguiente comando:
-\begin{lstlisting}[language=bash]
-scp ./linpeas.sh nathan@10.10.10.245:/home/nathan
-\end{lstlisting}
-
 Una vez subido el script, lo ejecutamos con:
 \begin{lstlisting}[language=bash]
-./linpeas.sh
+./linpeas.sh -a > 03_linpeas.txt
 \end{lstlisting}
 
-Y como resultado vemos que \textit{nathan} puede utilizar \texttt{/usr/bin/python3.8} como \textit{root} (figura \ref{fig:cap-linpeas}).\\
+El flag `-a` es utilizado para revisar todos los checks posibles; es recomendado en la realización de un \acrshort{CTF}.\\
+
+Como resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/03_linpeas.txt}{Output de \textit{03\_linpeas.txt}}} vemos que \textit{nathan} puede utilizar \texttt{/usr/bin/python3.8} como \textit{root} (figura \ref{fig:cap-linpeas}).\\
 
 \begin{figure}[h]
     \centering
@@ -142,3 +135,9 @@ python3 -c "import os; os.setuid(0); os.system('/bin/bash -i')"
     \caption{Escalada de privilegios y obtención de \textit{root}}
     \label{fig:cap-root}
 \end{figure}
+
+\newpage
+
+\subsection{Resumen}
+
+resumen de la máquina, vulnerabilidades encontradas y demás
