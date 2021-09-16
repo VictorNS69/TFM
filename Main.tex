@@ -38,7 +38,7 @@
 
 \author{Víctor Nieves Sánchez}
 \date{Octubre de 2021}
-\title{Resolución y explicación de CTF\_X y CTF\_Y}
+\title{Resolución y explicación de \textit{Cap} y \textit{Seal} (\acrshort{htb})}
 
 \begin{document}
 \maketitle
@@ -78,57 +78,60 @@
     \end{abstract}
 
     \newpage
-        \renewcommand{\spanishabstractname}{Abstract}
-        \begin{abstract}
-            \normalsize
-            \input{sections/abstract}
-        \end{abstract}
+    \renewcommand{\spanishabstractname}{Abstract}
+    \begin{abstract}
+        \normalsize
+        \input{sections/abstract}
+    \end{abstract}
     \newpage
     \pagenumbering{arabic} % Numeración árabe en la primera sección
 
     \section{Introducción}
-        voy a resolver varias máquinas
-        - contexto
-        - motivacion
-        - objetivos
-        - estructura del documento
-    
+    voy a resolver varias máquinas
+    - contexto
+    - motivacion
+    - objetivos
+    - estructura del documento
+
     \newpage
     \section{Estado del Arte}
     - hacking ético
     - htb
     - ctf
-    
+
     \newpage
     \section{Herramientas}
     En esta sección se hablará de las distintas herramientas utilizadas a lo largo de todo el documento.
-    
+
+    \subsection{Anew}
+    \input{sections/tools/anew}
+
     \subsection{Gobuster}
     \input{sections/tools/gobuster}
-    
+
     \subsection{Nmap}
     \input{sections/tools/nmap}
-    
+
     \subsection{PEASS-ng}
     \input{sections/tools/peass}
 
     \subsection{SecLists}
     \input{sections/tools/seclists}
-    
+
     \subsection{Wireshark}
     \input{sections/tools/wireshark}
 
-    
+
     \newpage
     \section{\acrshort{CTF} 1: \textit{Cap}}
     \input{sections/machines/cap}
-    
+
     \newpage
     \section{ctf2}
-    
+
     \newpage
     \section{conclusiones}
-    
+
     \newpage
     % \nocite{*} % Cita todas las ref (incluidas las no citadas)
     \printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
