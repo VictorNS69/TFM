@@ -78,27 +78,27 @@
     \end{abstract}
 
     \newpage
-    \renewcommand{\spanishabstractname}{Abstract}
-    \begin{abstract}
-        \normalsize
-        \input{sections/abstract}
-    \end{abstract}
+        \renewcommand{\spanishabstractname}{Abstract}
+        \begin{abstract}
+            \normalsize
+            \input{sections/abstract}
+        \end{abstract}
     \newpage
     \pagenumbering{arabic} % Numeración árabe en la primera sección
 
     \section{Introducción}
-    voy a resolver varias máquinas
-    - contexto
-    - motivacion
-    - objetivos
-    - estructura del documento
-
+        voy a resolver varias máquinas
+        - contexto
+        - motivacion
+        - objetivos
+        - estructura del documento
+    
     \newpage
     \section{Estado del Arte}
-
+    
     \subsection{Hacking Ético}
     \input{sections/stateOfTheArt/hackingEtico}
-
+    
     \subsection{\acrlong{HTB}}
     \input{sections/stateOfTheArt/htb}
 
@@ -108,39 +108,49 @@
     \newpage
     \section{Herramientas}
     En esta sección se hablará de las distintas herramientas utilizadas para la resolución de las distintas máquinas.
-
+    
     \subsection{Anew}
     \input{sections/tools/anew}
-
+    
+    \subsection{Burp Suite}
+    \input{sections/tools/burp}
+    
     \subsection{Gobuster}
     \input{sections/tools/gobuster}
-
+    
+    \subsection{MSFvenom}
+    \input{sections/tools/msfvenom}
+    
+    \subsection{Netcat}
+    \input{sections/tools/netcat}
+    
     \subsection{Nmap}
     \input{sections/tools/nmap}
-
+    
     \subsection{PEASS-ng}
     \input{sections/tools/peass}
 
     \subsection{SecLists}
     \input{sections/tools/seclists}
-
+    
     \subsection{Wireshark}
-    \input{sections/tools/wireshark}
-
-
+    %\input{sections/tools/wireshark}
+%TODO: DESCOMENTAR
     \newpage
     \section{\acrshort{CTF} 1: \textit{Cap}}
     \input{sections/machines/cap}
-
+    
     \newpage
-    \section{ctf2}
+    \section{\acrshort{CTF} 2: \textit{Seal}}
+    \input{sections/machines/seal}
 
     \newpage
     \section{conclusiones}
-
+    
     \newpage
     % \nocite{*} % Cita todas las ref (incluidas las no citadas)
     \printbibliography[heading=bibnumbered] % Última sección, numerada, para la bibliografía
 
 \end{otherlanguage}
 \end{document}
+
