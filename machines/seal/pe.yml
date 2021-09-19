@@ -2,4 +2,4 @@
   hosts: localhost
   tasks:
     - name: shell
-      command: "chmod +s /bin/bash"
+      command: "chmod +s /usr/bin/bash"
