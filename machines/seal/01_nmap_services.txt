@@ -1,0 +1,108 @@
+# Nmap 7.91 scan initiated Sat Sep 18 07:56:07 2021 as: nmap -p 22,443,8080 -sS -sCV -o 01_nmap_services.txt 10.10.10.250
+Nmap scan report for 10.10.10.250
+Host is up (0.016s latency).
+
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 4b:89:47:39:67:3d:07:31:5e:3f:4c:27:41:1f:f9:67 (RSA)
+|   256 04:a7:4f:39:95:65:c5:b0:8d:d5:49:2e:d8:44:00:36 (ECDSA)
+|_  256 b4:5e:83:93:c5:42:49:de:71:25:92:71:23:b1:85:54 (ED25519)
+443/tcp  open  ssl/http   nginx 1.18.0 (Ubuntu)
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+|_http-title: Seal Market
+| ssl-cert: Subject: commonName=seal.htb/organizationName=Seal Pvt Ltd/stateOrProvinceName=London/countryName=UK
+| Not valid before: 2021-05-05T10:24:03
+|_Not valid after:  2022-05-05T10:24:03
+| tls-alpn: 
+|_  http/1.1
+| tls-nextprotoneg: 
+|_  http/1.1
+8080/tcp open  http-proxy
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 401 Unauthorized
+|     Date: Sat, 18 Sep 2021 12:10:26 GMT
+|     Set-Cookie: JSESSIONID=node0zew96xz78clmadvk3uw7b3t593304.node0; Path=/; HttpOnly
+|     Expires: Thu, 01 Jan 1970 00:00:00 GMT
+|     Content-Type: text/html;charset=utf-8
+|     Content-Length: 0
+|   GetRequest: 
+|     HTTP/1.1 401 Unauthorized
+|     Date: Sat, 18 Sep 2021 12:10:26 GMT
+|     Set-Cookie: JSESSIONID=node01iqdrc43xfpah1mc3p892ff60k93302.node0; Path=/; HttpOnly
+|     Expires: Thu, 01 Jan 1970 00:00:00 GMT
+|     Content-Type: text/html;charset=utf-8
+|     Content-Length: 0
+|   HTTPOptions: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 18 Sep 2021 12:10:26 GMT
+|     Set-Cookie: JSESSIONID=node0zxk0us64yrbt2zg1jxwcnck593303.node0; Path=/; HttpOnly
+|     Expires: Thu, 01 Jan 1970 00:00:00 GMT
+|     Content-Type: text/html;charset=utf-8
+|     Allow: GET,HEAD,POST,OPTIONS
+|     Content-Length: 0
+|   RPCCheck: 
+|     HTTP/1.1 400 Illegal character OTEXT=0x80
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 71
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character OTEXT=0x80</pre>
+|   RTSPRequest: 
+|     HTTP/1.1 505 Unknown Version
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 58
+|     Connection: close
+|     <h1>Bad Message 505</h1><pre>reason: Unknown Version</pre>
+|   Socks4: 
+|     HTTP/1.1 400 Illegal character CNTL=0x4
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 69
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x4</pre>
+|   Socks5: 
+|     HTTP/1.1 400 Illegal character CNTL=0x5
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 69
+|     Connection: close
+|_    <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x5</pre>
+| http-auth: 
+| HTTP/1.1 401 Unauthorized\x0D
+|_  Server returned status 401 but no WWW-Authenticate header.
+|_http-title: Site doesn't have a title (text/html;charset=utf-8).
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port8080-TCP:V=7.91%I=7%D=9/18%Time=6145D3DE%P=x86_64-pc-linux-gnu%r(Ge
+SF:tRequest,F9,"HTTP/1\.1\x20401\x20Unauthorized\r\nDate:\x20Sat,\x2018\x2
+SF:0Sep\x202021\x2012:10:26\x20GMT\r\nSet-Cookie:\x20JSESSIONID=node01iqdr
+SF:c43xfpah1mc3p892ff60k93302\.node0;\x20Path=/;\x20HttpOnly\r\nExpires:\x
+SF:20Thu,\x2001\x20Jan\x201970\x2000:00:00\x20GMT\r\nContent-Type:\x20text
+SF:/html;charset=utf-8\r\nContent-Length:\x200\r\n\r\n")%r(HTTPOptions,10B
+SF:,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2018\x20Sep\x202021\x2012:10
+SF::26\x20GMT\r\nSet-Cookie:\x20JSESSIONID=node0zxk0us64yrbt2zg1jxwcnck593
+SF:303\.node0;\x20Path=/;\x20HttpOnly\r\nExpires:\x20Thu,\x2001\x20Jan\x20
+SF:1970\x2000:00:00\x20GMT\r\nContent-Type:\x20text/html;charset=utf-8\r\n
+SF:Allow:\x20GET,HEAD,POST,OPTIONS\r\nContent-Length:\x200\r\n\r\n")%r(RTS
+SF:PRequest,AD,"HTTP/1\.1\x20505\x20Unknown\x20Version\r\nContent-Type:\x2
+SF:0text/html;charset=iso-8859-1\r\nContent-Length:\x2058\r\nConnection:\x
+SF:20close\r\n\r\n<h1>Bad\x20Message\x20505</h1><pre>reason:\x20Unknown\x2
+SF:0Version</pre>")%r(FourOhFourRequest,F7,"HTTP/1\.1\x20401\x20Unauthoriz
+SF:ed\r\nDate:\x20Sat,\x2018\x20Sep\x202021\x2012:10:26\x20GMT\r\nSet-Cook
+SF:ie:\x20JSESSIONID=node0zew96xz78clmadvk3uw7b3t593304\.node0;\x20Path=/;
+SF:\x20HttpOnly\r\nExpires:\x20Thu,\x2001\x20Jan\x201970\x2000:00:00\x20GM
+SF:T\r\nContent-Type:\x20text/html;charset=utf-8\r\nContent-Length:\x200\r
+SF:\n\r\n")%r(Socks5,C3,"HTTP/1\.1\x20400\x20Illegal\x20character\x20CNTL=
+SF:0x5\r\nContent-Type:\x20text/html;charset=iso-8859-1\r\nContent-Length:
+SF:\x2069\r\nConnection:\x20close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pr
+SF:e>reason:\x20Illegal\x20character\x20CNTL=0x5</pre>")%r(Socks4,C3,"HTTP
+SF:/1\.1\x20400\x20Illegal\x20character\x20CNTL=0x4\r\nContent-Type:\x20te
+SF:xt/html;charset=iso-8859-1\r\nContent-Length:\x2069\r\nConnection:\x20c
+SF:lose\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Illegal\x20ch
+SF:aracter\x20CNTL=0x4</pre>")%r(RPCCheck,C7,"HTTP/1\.1\x20400\x20Illegal\
+SF:x20character\x20OTEXT=0x80\r\nContent-Type:\x20text/html;charset=iso-88
+SF:59-1\r\nContent-Length:\x2071\r\nConnection:\x20close\r\n\r\n<h1>Bad\x2
+SF:0Message\x20400</h1><pre>reason:\x20Illegal\x20character\x20OTEXT=0x80<
+SF:/pre>");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Sep 18 07:56:24 2021 -- 1 IP address (1 host up) scanned in 17.43 seconds

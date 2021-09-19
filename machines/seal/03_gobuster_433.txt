@@ -1,0 +1,35 @@
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+[+] Url:                     https://seal.htb
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /home/victor/Hacking/SecLists/Discovery/Web-Content/raft-large-words.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+2021/09/18 12:44:16 Starting gobuster in directory enumeration mode
+/.                    (Status: 200) [Size: 19737]
+/manager              (Status: 302) [Size: 0] [--> http://seal.htb/manager/]
+/admin                (Status: 302) [Size: 0] [--> http://seal.htb/admin/]  
+/icon                 (Status: 302) [Size: 0] [--> http://seal.htb/icon/]   
+/js                   (Status: 302) [Size: 0] [--> http://seal.htb/js/]     
+/images               (Status: 302) [Size: 0] [--> http://seal.htb/images/] 
+/css                  (Status: 302) [Size: 0] [--> http://seal.htb/css/]    
+/host-manager         (Status: 302) [Size: 0] [--> http://seal.htb/host-manager/]
+2021/09/18 12:54:10 Finished
+
+[+] Wordlist:                /home/victor/Hacking/SecLists/Discovery/Web-Content/tomcat.txt
+2021/09/18 12:52:26 Starting gobuster in directory enumeration mode
+/examples/../manager/html (Status: 403) [Size: 162]
+/examples/%2e%2e/manager/html (Status: 403) [Size: 162]
+/host-manager/html/*  (Status: 403) [Size: 162]        
+/host-manager         (Status: 302) [Size: 0] [--> http://seal.htb/host-manager/]
+/manager              (Status: 302) [Size: 0] [--> http://seal.htb/manager/]     
+/manager/html         (Status: 403) [Size: 162]                                  
+/manager/html/*       (Status: 403) [Size: 162]                                  
+/manager/jmxproxy     (Status: 401) [Size: 2499]                                 
+/manager/jmxproxy/*   (Status: 401) [Size: 2499]                                 
+/manager/status/*     (Status: 401) [Size: 2499]                                 
+/manager/status.xsd   (Status: 200) [Size: 4374]                                 
+2021/09/18 12:52:27 Finished

