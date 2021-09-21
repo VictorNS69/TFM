@@ -10,7 +10,7 @@ El primer paso realizado en la enumeración es usar la herramienta \textit{Nmap}
 \begin{lstlisting}[language=bash]
 nmap -p- --min-rate 10000 -o 00_nmap_ports.txt 10.10.10.245
 \end{lstlisting}
-El argumento \texttt{-p-} para hacer un escaneo de todos los puertos; \texttt{--min-rate 10000} se ha utilizado para indicar a \textit{Nmap} que como mínimo envíe 10000 paquetes por segundo; por último, el argumento \texttt{-o ports.txt}, que es utilizado para guardar la salida en un archivo llamado \textit{00\_nmap\_ports.txt}.\\
+El argumento \texttt{-p-} para hacer un escaneo de todos los puertos; \texttt{--min-rate 10000} se ha utilizado para indicar a \textit{Nmap} que como mínimo envíe 10000 paquetes por segundo; por último, el argumento \texttt{-o 00\_nmap\_ports.txt}, que es utilizado para guardar la salida en un archivo llamado \textit{00\_nmap\_ports.txt}.\\
 
 Tras la ejecución del comando, se han encontrado los puertos 21/\acrshort{tcp}, 22/\acrshort{tcp} y 80/\acrshort{tcp} abiertos. Con este resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/cap/00_nmap_ports.txt}{Output de \textit{00\_nmap\_ports.txt}}}, de nuevo ejecutamos \textit{Nmap} para sacar información sobre los servicios que se están ejecutando en cada puerto.\\
 
@@ -68,7 +68,7 @@ Por último, el apartado Security Snapshot (figura \ref{fig:cap-snapshot}) nos p
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/machines/cap/wireshark-16.png}
-    \caption{Archivo \textit{16.pcap} en \textit{Wireshark}}
+    \caption{Cap: Archivo \textit{16.pcap} en \textit{Wireshark}}
     \label{fig:cap-wire-16}
 \end{figure}
 
@@ -80,7 +80,7 @@ Se ha decidido empezar por orden, y empezar revisando primero \texttt{0.pcap}. A
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/machines/cap/wireshark-0.png}
-    \caption{Archivo \textit{0.pcap} en \textit{Wireshark}}
+    \caption{Cap: Archivo \textit{0.pcap} en \textit{Wireshark}}
     \label{fig:cap-wire-0}
 \end{figure}
 
@@ -88,11 +88,11 @@ Con las credenciales obtenidas, entramos al servidor \acrshort{ftp}, y, como se 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/machines/cap/user-flag.png}
-    \caption{Acceso al servidor \acrshort{ftp} y obtención del flag de usuario}
+    \caption{Cap: Acceso al servidor \acrshort{ftp} y obtención del flag de usuario}
     \label{fig:cap-user-flag}
 \end{figure}
 
-\subsection{Escalada de Privilegios}
+\subsection{Escalada de privilegios}
 
 Lo primero que se decide hacer es intentar acceder al \acrshort{ssh} con las credenciales anteriores. Conseguimos entrar.\\
 
@@ -104,7 +104,7 @@ scp ./linpeas.sh nathan@10.10.10.245:/home/nathan
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/machines/cap/nathan-sudo.png}
-    \caption{Login \acrshort{ssh} con \textit{nathan} y comprobación de \texttt{sudo}}
+    \caption{Cap: Login \acrshort{ssh} con \textit{nathan} y comprobación de \texttt{sudo}}
     \label{fig:cap-nathan-sudo}
 \end{figure}
 
@@ -120,7 +120,7 @@ Como resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machin
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/machines/cap/linpeas.png}
-    \caption{Resultado \textit{linPEAS}}
+    \caption{Cap: Resultado \textit{linPEAS}}
     \label{fig:cap-linpeas}
 \end{figure}
 
@@ -132,7 +132,7 @@ python3 -c "import os; os.setuid(0); os.system('/bin/bash -i')"
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/machines/cap/root.png}
-    \caption{Escalada de privilegios y obtención de \textit{root}}
+    \caption{Cap: Escalada de privilegios y obtención de \textit{root}}
     \label{fig:cap-root}
 \end{figure}
 
