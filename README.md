@@ -1,23 +1,34 @@
-# TODO
+# Resolución y explicación de Cap y Seal (HTB)
+
+This repository contains my thesis (Master's project) for the Master's Degree in Computer Security and Ethical Hacking at [CICE](https://www.cice.es/).
+
+**This thesis is in Spanish**. No English version available.
 
 ## Author
+
 [Víctor Nieves Sánchez](https://www.linkedin.com/in/victor-nieves-s%C3%A1nchez/)
 
 ## Abstract
 TODO
 
 ## Requirements
+
 1. Install **_LaTex_** (also Spanish language).
+
 ```bash
 sudo apt install texlive-full texlive-lang-spanish
 ```
+
 ## Generate the PDF file
+
 Just run the _Makefile_ with:
 
 ```bash
 make
 ```
+
 More info:
+
 ```bash
 This Makefile generates the file TFM_VICTOR_NIEVES_SANCHEZ.pdf.
 Author: Víctor Nieves Sánchez
