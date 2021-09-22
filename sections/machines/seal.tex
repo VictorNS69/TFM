@@ -147,7 +147,7 @@ Entonces se decide investigar si se puede realizar \textit{path traversal} y as�
     \item \texttt{/manager/status/\%2e\%2e/html}
     \item \texttt{/manager/status/\%2e\%2e\%2fhtml}
     \item \texttt{/manager/status/;/html}
-    \item ...
+    \item \ldots
 \end{itemize}
 
 Finalmente, damos con el payload correcto, \texttt{/manager/status/../;/html}. Probamos con el mismo payload, pero intentando acceder a \texttt{jmxproxy}, pero aparece una página de ayuda de \textit{Tomcat}. En la página encontramos la opción de desplegar un archivo \texttt{.war} a la web, por eso, se decide utilizar la herramienta \textit{msfvenom}\cite{msfvenom} para crear una shell remota. Lo logramos con:
@@ -256,12 +256,12 @@ Copiamos la clave en nuestro equipo e intentamos acceder vía \acrshort{ssh} al 
 
 \subsection{Escalada de privilegios}
 
-Como ya estamos conectados a la máquina como \textit{luis}, ahora vamos a intentar obtener \textit{root}. Para ello, primero comprobamos si hay algún archivo que \textit{luis} pueda ejecutar como \textit{root}. Como se muestra en la siguiente figura (figura \ref{fig:seal-ssh-luis}), se puede ejecutar \texttt{/usr/bin/ansible-playground} como \textit{root}. De nuevo, utilizamos \textit{Google} para ver qué podemos hacer con \textit{Ansible Playground}\cite{ansible-playbooks}. Vemos que podemos ejecutar comandos como los ejecutaríamos en cualquier shell.
+Como ya estamos conectados a la máquina como \textit{luis}, ahora vamos a intentar obtener \textit{root}. Para ello, primero comprobamos si hay algún archivo que \textit{luis} pueda ejecutar como \textit{root}. Como se muestra en la siguiente figura (figura \ref{fig:seal-sudo}), se puede ejecutar \texttt{/usr/bin/ansible-playground} como \textit{root}. De nuevo, utilizamos \textit{Google} para ver qué podemos hacer con \textit{Ansible Playground}\cite{ansible-playbooks}. Vemos que podemos ejecutar comandos como los ejecutaríamos en cualquier shell.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{images/machines/seal/sudo-l-luis.png}
     \caption{Seal: Comando \texttt{sudo -l}}
-    \label{fig:seal-ssh-luis}
+    \label{fig:seal-sudo}
 \end{figure}
 
 Se prueban distintos payloads para intentar obtener un shell como \textit{root}. Se prueba el mismo payload que se utilizó en la máquina anterior, pero sin éxito. Se prueba utilizando el comando \texttt{exec} para obtener un bash, pero sigue sin dar resultado. Finalmente, se decide a crear un payload\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machines/seal/pe.yml}{Archivo \textit{pe.yml}}} que modifique los permisos del comando \texttt{/usr/bin/bash}. El objetivo de este payload es modificar los permisos para que cuando se ejecute \texttt{/usr/bin\\/bash} se asigne el \texttt{euid} y \texttt{egid} (id de usuario e id de grupo respectivamente) de \textit{root}. El motivo por el cual se utiliza este payload es utilizar una de las características de \textit{Linux} que permite ejecutar archivos modificando el \textit{id efectivo} del usuario llamante; esto quiere decir que, si el creador del archivo es \textit{root}, y está habilitado el bit, se permite modificar el \textit{id} del llamante (en este caso \textit{luis}), y que utilice el \textit{id} de \textit{root}. Así, se consigue que al utilizar el comando \texttt{/usr/bin/bash}, podamos hacerlo como súper-usuario.\\
