@@ -61,12 +61,12 @@
     \newpage
     \listoffigures
 
-    \newpage
-    \renewcommand{\listtablename}{Lista de Tablas}
-    \listoftables
+    %\newpage
+    %\renewcommand{\listtablename}{Lista de Tablas}
+    %\listoftables
 
-    \newpage
-    \lstlistoflistings
+    %\newpage
+    %\lstlistoflistings
 
     \newpage
     \printglossary[type=\acronymtype]
@@ -87,11 +87,18 @@
     \pagenumbering{arabic} % Numeración árabe en la primera sección
 
     \section{Introducción}
-    voy a resolver varias máquinas
-    - contexto
-    - motivacion
-    - objetivos
-    - estructura del documento
+    Esta sección presenta el contexto del trabajo, la motivación del mismo, los objetivos específicos que se pretenden alcanzar y una explicación de la estructura del resto del documento.
+    \subsection{Contexto}
+    \input{sections/intro/contexto}
+
+    \subsection{Motivación}
+    \input{sections/intro/motivacion}
+
+    \subsection{Objetivos}
+    \input{sections/intro/objetivos}
+
+    \subsection{Estructura del documento}
+    \input{sections/intro/estructura}
 
     \newpage
     \section{Estado del Arte}
@@ -101,9 +108,6 @@
 
     \subsection{\acrlong{HTB}}
     \input{sections/stateOfTheArt/htb}
-
-    \subsection{\acrlong{CTF}}
-    \input{sections/stateOfTheArt/ctf}
 
     \newpage
     \section{Herramientas}
@@ -137,15 +141,16 @@
     \input{sections/tools/wireshark}
 
     \newpage
-    \section{\acrshort{CTF} 1: \textit{Cap}}
+    \section{Máquina 1: \textit{Cap}}
     \input{sections/machines/cap}
 
     \newpage
-    \section{\acrshort{CTF} 2: \textit{Seal}}
+    \section{Máquina 2: \textit{Seal}}
     \input{sections/machines/seal}
 
     \newpage
     \section{Conclusiones}
+    \input{sections/conclusiones}
 
     \newpage
     % \nocite{*} % Cita todas las ref (incluidas las no citadas)
