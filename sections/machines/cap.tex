@@ -136,8 +136,6 @@ python3 -c "import os; os.setuid(0); os.system('/bin/bash -i')"
     \label{fig:cap-root}
 \end{figure}
 
-\newpage
-
 \subsection{Resumen}
 
 En esta máquina hemos encontrado varias vulnerabilidades o malas prácticas. Por ejemplo, se han encontrado información sensible sobre la red y los además de los puertos abiertos en la máquina (figura \ref{fig:cap}). También se ha encontrado que, por una característica de la aplicación, te puedes bajar paquetes de esnifado de red (archivos \texttt{.pcap}). Esto sumado a que hay un servidor \acrshort{ftp} que no cifra las comunicaciones a la hora de iniciar sesión, nos ha podido encontrar las credenciales en claro en uno de los paquetes descargados. Esto nos ha permitido conectarnos al servidor \acrshort{ftp}. Además, se ha hecho uso de malas políticas de gestión de contraseñas y, se ha podido acceder al servicio \acrshort{ssh} con las mismas credenciales.\\
