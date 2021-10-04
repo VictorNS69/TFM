@@ -1,44 +1,44 @@
-        \documentclass[a4paper, 12pt]{article} % Fuente 12pt
-        \usepackage[T1]{fontenc}
-        \usepackage{hyperref}
-        \usepackage[left=3cm, right=3cm, top=3.5cm, bottom=3.5cm]{geometry} % Márgenes recomendados
-        \usepackage{times} % Fuente Times New Romans
-        \usepackage[spanish, english]{babel} 
-        \usepackage[style=ieee, backend=bibtex,citestyle=numeric-comp]{biblatex} % Bibliografía en formato IEEE
-        \usepackage{sectsty}
-        \usepackage{cover/cover}
-        \usepackage{graphicx}
-        \usepackage{subfig}
-        \graphicspath{ {images/} } % Directorio imágenes
-        \usepackage{listings} % Formateo código
-        \lstset{
-        basicstyle=\ttfamily,
-        columns=fullflexible,
-        frame=single,
-        breaklines=true,
-        postbreak=\mbox{\textcolor{black}{$\hookrightarrow$}\space},
-        }
-        \usepackage{scrextend}
-        \usepackage{longtable}
-        \usepackage{pgfplots} % Graficas de barras
-        \usepackage{pgf-pie} % Graficas de tartas
-        \usepackage{multirow} % multiples filas en las tablas
-        \usepackage[utf8]{inputenc}
-        % Lista de acronimos
-        \usepackage[acronym]{glossaries}
-        \input{sections/Acronyms}
-        \makeglossaries
-        \sectionfont{\MakeUppercase} % Secciones en mayúsculas
-        \bibliography{sections/Bibliography.bib}
+\documentclass[a4paper, 12pt]{article} % Fuente 12pt
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage[left=3cm, right=3cm, top=3.5cm, bottom=3.5cm]{geometry} % Márgenes recomendados
+\usepackage{times} % Fuente Times New Romans
+\usepackage[spanish, english]{babel} 
+\usepackage[style=ieee, backend=bibtex,citestyle=numeric-comp]{biblatex} % Bibliografía en formato IEEE
+\usepackage{sectsty}
+\usepackage{cover/cover}
+\usepackage{graphicx}
+\usepackage{subfig}
+\graphicspath{ {images/} } % Directorio imágenes
+\usepackage{listings} % Formateo código
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{black}{$\hookrightarrow$}\space},
+}
+\usepackage{scrextend}
+\usepackage{longtable}
+\usepackage{pgfplots} % Graficas de barras
+\usepackage{pgf-pie} % Graficas de tartas
+\usepackage{multirow} % multiples filas en las tablas
+\usepackage[utf8]{inputenc}
+% Lista de acronimos
+\usepackage[acronym]{glossaries}
+\input{sections/Acronyms}
+\makeglossaries
+\sectionfont{\MakeUppercase} % Secciones en mayúsculas
+\bibliography{sections/Bibliography.bib}
 
-        \Director{Luis Alfonso Rodríguez De Trio y Pérez}
-        \Lugar{Madrid} 
-        \Master{Máster en Seguridad Informática y Hacking Ético} 
-        \Trabajo{TRABAJO FIN DE MÁSTER} 
+\Director{Luis Alfonso Rodríguez De Trio y Pérez}
+\Lugar{Madrid} 
+\Master{Máster en Seguridad Informática y Hacking Ético} 
+\Trabajo{TRABAJO FIN DE MÁSTER} 
 
-        \author{Víctor Nieves Sánchez}
-        \date{Octubre de 2021}
-        \title{Resolución y explicación de \textit{Cap} y \textit{Seal} (\acrshort{HTB})}
+\author{Víctor Nieves Sánchez}
+\date{Octubre de 2021}
+\title{Resolución y explicación de \textit{Cap} y \textit{Seal} (\acrshort{HTB})}
 
 \begin{document}
 \maketitle
@@ -151,6 +151,10 @@
     \newpage
     \section{Conclusiones}
     \input{sections/conclusiones}
+
+    \newpage
+    \section{Trabajo Futuro}
+    \input{sections/future}
 
     \newpage
     % \nocite{*} % Cita todas las ref (incluidas las no citadas)
