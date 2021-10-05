@@ -7,7 +7,7 @@ Dado que es un \acrshort{CTF}, no se ha visto la necesidad de profundizar más e
 
 \subsection{Enumeración}
 \subsubsection{Puerto 8080}
-Al igual que con la máquina anterior, l primer paso realizado en la enumeración es usar la herramienta \textit{Nmap}\cite{nmap}. Para ello se ha utilizado el siguiente comando.
+Al igual que con la máquina anterior, el primer paso realizado en la enumeración es usar la herramienta \textit{Nmap}\cite{nmap}. Para ello se ha utilizado el siguiente comando.
 
 \begin{lstlisting}[language=bash]
 nmap -p- -o 00_nmap_ports.txt 10.10.10.245
@@ -37,7 +37,7 @@ En el resultado\footnote{\href{https://github.com/VictorNS69/TFM/blob/main/machi
 cat 02_gobuster_8080.txt | grep -v -e "Status: 401" | sort
 \end{lstlisting}
 
-Se ha usado \textit{grep} para hacer una búsqueda, con los flags \texttt{-v} para que el comando devuelva los elementos que no coinciden con la expresión utilizada. El flag \texttt{-e} se utiliza para añadir la expresión a buscar, en este caso ``\textit{Satus: 401}``. Por último se ha utilizado \textit{sort} para ordenar la salida.\\
+Se ha usado \textit{grep} para hacer una búsqueda, con los flags \texttt{-v} para que el comando devuelva los elementos que no coinciden con la expresión utilizada. El flag \texttt{-e} se utiliza para añadir la expresión a buscar, en este caso ``\textit{Status: 401}``. Por último se ha utilizado \textit{sort} para ordenar la salida.\\
 
 Se han encontrado las siguientes \acrshort{url}'s:
 \begin{itemize}
